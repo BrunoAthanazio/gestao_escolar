@@ -13,9 +13,7 @@ public interface AlunoRepository {
 
     List<Aluno> getAll() throws SQLException;
 
-    Aluno update(Aluno aluno) throws SQLException;
+    Aluno update(Long id, Aluno aluno) throws SQLException;
 
     void delete(Long id) throws SQLException;
-
-    
 }

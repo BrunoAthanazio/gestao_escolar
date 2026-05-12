@@ -3,17 +3,18 @@ package com.weg.gestao_escolar.service.aluno;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.weg.gestao_escolar.model.Aluno;
+import com.weg.gestao_escolar.dto.aluno.AlunoRequestDto;
+import com.weg.gestao_escolar.dto.aluno.AlunoResponseDto;
 
 public interface AlunoService {
 
-    Aluno save(Aluno aluno) throws SQLException;
+    AlunoResponseDto save(AlunoRequestDto alunoDto) throws SQLException;
 
-    Aluno get(Long id) throws SQLException;
+    AlunoResponseDto get(Long id) throws SQLException;
 
-    List<Aluno> getAll() throws SQLException;
+    List<AlunoResponseDto> getAll() throws SQLException;
 
-    Aluno update(Long id, Aluno aluno) throws SQLException;
+    AlunoResponseDto update(Long id, AlunoRequestDto alunoDto) throws SQLException;
 
     void delete(Long id) throws SQLException;
 }

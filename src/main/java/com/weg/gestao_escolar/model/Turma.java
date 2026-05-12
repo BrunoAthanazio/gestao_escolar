@@ -21,6 +21,8 @@ public class Turma {
         this.professor_id = professor_id;
     }
 
+    public Turma() {}
+
     public Long getId() {
         return id;
     }

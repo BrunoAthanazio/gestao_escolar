@@ -8,6 +8,8 @@ public class TurmaAluno {
         this.aluno_id = aluno_id;
     }
 
+    public TurmaAluno() {}
+
     public Long getTurma_id() {
         return turma_id;
     }

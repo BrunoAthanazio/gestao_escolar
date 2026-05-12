@@ -23,6 +23,8 @@ public class Aula {
         this.assunto = assunto;
     }
 
+    public Aula() {}
+
     public Long getId() {
         return id;
     }

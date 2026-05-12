@@ -19,6 +19,8 @@ public class Nota {
         this.valor = valor;
     }
 
+    public Nota() {}
+
     public Long getId() {
         return id;
     }

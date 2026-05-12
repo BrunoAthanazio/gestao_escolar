@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -40,26 +41,91 @@ public class AlunoRepositoryImpl implements AlunoRepository{
 
     @Override
     public Aluno get(Long id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        String query = """
+                SELECT nome,
+                    email,
+                    matricula,
+                    data_nascimento
+                FROM aluno
+                WHERE id = ?;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Aluno aluno = new Aluno(
+                    id, 
+                    rs.getString("nome"), 
+                    rs.getString("email"),
+                    rs.getString("matricula"),
+                    rs.getDate("data_nascimento")
+                );
+                return aluno;
+            }
+            throw new RuntimeException("Aluno não encontrado");
+        }
     }
 
     @Override
     public List<Aluno> getAll() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Aluno> alunos = new ArrayList<>();
+        String query = """
+                SELECT id,
+                    nome,
+                    email,
+                    matricula,
+                    data_nascimento
+                FROM aluno;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Aluno aluno = new Aluno(
+                    rs.getLong("id"),
+                    rs.getString("nome"), 
+                    rs.getString("email"),
+                    rs.getString("matricula"),
+                    rs.getDate("data_nascimento")
+                );
+                alunos.add(aluno);
+            }
+            return alunos;
+        }
     }
 
     @Override
-    public Aluno update(Aluno aluno) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Aluno update(Long id, Aluno aluno) throws SQLException {
+        String command = """
+                UPDATE aluno
+                SET nome = ?, email = ?, matricula = ?, data_nascimento = ?
+                WHERE id = ?;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(command)){
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, aluno.getEmail());
+            stmt.setString(3, aluno.getMatricula());
+            stmt.setDate(4, aluno.getData_nascimento());
+            stmt.setLong(5, id);
+            stmt.executeUpdate();
+            aluno.setId(id);
+            return aluno;
+        }
     }
 
     @Override
     public void delete(Long id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String command = """
+                DELETE FROM aluno
+                WHERE id = ?;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(command)){
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
     }
 
 }

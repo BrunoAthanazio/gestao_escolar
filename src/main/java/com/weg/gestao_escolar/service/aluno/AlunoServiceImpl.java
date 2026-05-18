@@ -28,7 +28,8 @@ public class AlunoServiceImpl implements AlunoService{
     public AlunoResponseDto save(AlunoRequestDto alunoDto) throws SQLException {
         Aluno aluno = alunoMapper.toEntity(alunoDto);
         alunoRepository.save(aluno);
-        return alunoMapper.toResponse(aluno);
+        AlunoResponseDto alunoResponse = alunoMapper.toResponse(aluno);
+        return alunoResponse;
     }
 
     @Override

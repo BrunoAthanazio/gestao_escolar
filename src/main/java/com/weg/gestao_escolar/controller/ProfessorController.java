@@ -20,7 +20,7 @@ public class ProfessorController {
         this.professorService = professorService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ProfessorResponseDto postProfessor(@RequestBody ProfessorRequestDto professorRequest){
         try{
             return professorService.save(professorRequest);

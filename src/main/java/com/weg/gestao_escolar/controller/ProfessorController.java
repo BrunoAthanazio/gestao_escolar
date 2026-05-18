@@ -11,7 +11,7 @@ import com.weg.gestao_escolar.service.professor.ProfessorService;
 
 
 @RestController
-@RequestMapping("/professor")
+@RequestMapping("/professores")
 public class ProfessorController {
 
     private final ProfessorService professorService;

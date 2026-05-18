@@ -10,7 +10,7 @@ import com.weg.gestao_escolar.dto.aluno.AlunoResponseDto;
 import com.weg.gestao_escolar.service.aluno.AlunoService;
 
 @RestController
-@RequestMapping("/aluno")
+@RequestMapping("/alunos")
 public class AlunoController {
     private final AlunoService alunoService;
 

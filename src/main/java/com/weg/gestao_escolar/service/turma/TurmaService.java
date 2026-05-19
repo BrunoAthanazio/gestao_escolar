@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.weg.gestao_escolar.dto.turma.TurmaRequestDto;
 import com.weg.gestao_escolar.dto.turma.TurmaResponseDto;
-import com.weg.gestao_escolar.model.Turma;
 
 public interface TurmaService {
     TurmaResponseDto save(TurmaRequestDto turmaRequest) throws SQLException;

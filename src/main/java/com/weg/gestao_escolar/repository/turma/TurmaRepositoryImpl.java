@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -55,7 +56,7 @@ public class TurmaRepositoryImpl implements TurmaRepository{
             if(rs.next()){
                 String nome = rs.getString("turma.nome");
                 String curso_nome = rs.getString("curso.nome");
-                String professor_nome = rs.getString("professor_nome");
+                String professor_nome = rs.getString("professor.nome");
 
                 Turma turma = new Turma(id, nome, curso_nome, professor_nome);
                 return turma;
@@ -66,20 +67,63 @@ public class TurmaRepositoryImpl implements TurmaRepository{
 
     @Override
     public List<Turma> getAll() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Turma> turmas = new ArrayList<>();
+        String query = """
+                SELECT turma.id,
+                    turma.nome,
+                    curso.nome,
+                    professor.nome
+                FROM turma
+                JOIN curso ON turma.curso_id = curso.id
+                JOIN professor ON turma.professor_id = professor.id
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Long id = rs.getLong("turma.id");
+                String nome_turma = rs.getString("turma.nome");
+                String nome_curso = rs.getString("curso.nome");
+                String nome_professor = rs.getString("professor.nome");
+
+                Turma turma = new Turma(id, nome_turma, nome_curso, nome_professor);
+                turmas.add(turma);
+            }
+            return turmas;
+        }
     }
 
     @Override
     public Turma update(Long id, Turma turma) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String command = """
+                UPDATE turma
+                SET nome = ?, curso_id = ?, professor_id = ?
+                WHERE id = ?;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(command)){
+            stmt.setString(1, turma.getNome());
+            stmt.setLong(2, turma.getCurso_id());
+            stmt.setLong(3, turma.getProfessor_id());
+            stmt.setLong(4, id);
+            stmt.executeUpdate();
+            turma.setId(id);
+
+            return turma;
+        }
     }
 
     @Override
     public void delete(Long id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String command = """
+                DELETE FROM turma
+                WHERE id = ?;
+                """;
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(command)){
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
     }
 
 }

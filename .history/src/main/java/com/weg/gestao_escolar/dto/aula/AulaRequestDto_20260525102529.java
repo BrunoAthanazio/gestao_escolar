@@ -1,0 +1,11 @@
+package com.weg.gestao_escolar.dto.aula;
+
+import java.time.LocalDateTime;
+
+public record AulaRequestDto(
+    Long turma_id,
+    LocalDateTime data_hora,
+    String a
+) {
+
+}

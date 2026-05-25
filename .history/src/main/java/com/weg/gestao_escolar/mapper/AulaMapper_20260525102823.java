@@ -1,0 +1,14 @@
+package com.weg.gestao_escolar.mapper;
+
+import org.springframework.stereotype.Component;
+
+import com.weg.gestao_escolar.dto.aula.AulaRequestDto;
+import com.weg.gestao_escolar.model.Aula;
+
+@Component
+public class AulaMapper {
+
+    public Aula toEntity(AulaRequestDto aulaRequest){
+        Aula aula = new Aula();
+    }
+}

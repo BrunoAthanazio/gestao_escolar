@@ -64,21 +64,5 @@ public class Nota {
         this.valor = valor;
     }
 
-    public String getAluno_nome() {
-        return aluno_nome;
-    }
-
-    public void setAluno_nome(String aluno_nome) {
-        this.aluno_nome = aluno_nome;
-    }
-
-    public String getAula_assunto() {
-        return aula_assunto;
-    }
-
-    public void setAula_assunto(String aula_assunto) {
-        this.aula_assunto = aula_assunto;
-    }
-
     
 }

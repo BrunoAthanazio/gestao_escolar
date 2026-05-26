@@ -21,7 +21,9 @@ public class Nota {
         this.valor = valor;
     }
 
-    public Nota(Long id, String aluno_nome, String aula_assunto, Double valor) { 
+    
+
+    public Nota(Long id, String aluno_nome, String aula_assunto, Double valor) {
         this.id = id;
         this.valor = valor;
         this.aluno_nome = aluno_nome;
@@ -29,8 +31,6 @@ public class Nota {
     }
 
     public Nota() {}
-
-    
 
     public Long getId() {
         return id;
@@ -62,22 +62,6 @@ public class Nota {
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public String getAluno_nome() {
-        return aluno_nome;
-    }
-
-    public void setAluno_nome(String aluno_nome) {
-        this.aluno_nome = aluno_nome;
-    }
-
-    public String getAula_assunto() {
-        return aula_assunto;
-    }
-
-    public void setAula_assunto(String aula_assunto) {
-        this.aula_assunto = aula_assunto;
     }
 
     

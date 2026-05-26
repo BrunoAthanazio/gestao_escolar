@@ -1,0 +1,13 @@
+package com.weg.gestao_escolar.mapper;
+
+import org.springframework.stereotype.Component;
+
+import com.weg.gestao_escolar.model.Nota;
+
+@Component
+public class NotaMapper {
+
+    public Nota toEntity(){
+        
+    }
+}

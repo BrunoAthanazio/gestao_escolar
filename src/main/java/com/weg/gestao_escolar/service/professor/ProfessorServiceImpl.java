@@ -25,6 +25,12 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     @Override
     public ProfessorResponseDto save(ProfessorRequestDto professorRequest) throws SQLException {
+        List<Professor> professores = professorRepository.getAll();
+        for(Professor professor : professores){
+            if(professor.getEmail().equals(professorRequest.email())){
+                throw new RuntimeException("O email deve ser único");
+            }
+        }
         Professor professor = professorMapper.toEntity(professorRequest);
         professorRepository.save(professor);
         ProfessorResponseDto professorResponse = professorMapper.toResponse(professor);

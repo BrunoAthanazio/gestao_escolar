@@ -26,6 +26,9 @@ public class NotaServiceImpl implements NotaService{
     @Override
     public NotaResponseDto save(NotaRequestDto notaRequest) throws SQLException {
         Nota nota = notaMapper.toEntity(notaRequest);
+        if(nota.getValor() < 0 || nota.getValor() > 10){
+            throw new IllegalArgumentException("A nota deve ser entre 0 e 10");
+        }
         notaRepository.save(nota);
         nota = notaRepository.get(nota.getId());
         NotaResponseDto notaResponse = notaMapper.toResponse(nota);

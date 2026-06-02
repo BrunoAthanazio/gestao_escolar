@@ -26,6 +26,12 @@ public class AlunoServiceImpl implements AlunoService{
 
     @Override
     public AlunoResponseDto save(AlunoRequestDto alunoDto) throws SQLException {
+        List<Aluno> alunos = alunoRepository.getAll();
+        for(Aluno aluno : alunos){
+            if(aluno.getEmail().equals(alunoDto.email())){
+                throw new RuntimeException("O email deve ser único");
+            }
+        }
         Aluno aluno = alunoMapper.toEntity(alunoDto);
         alunoRepository.save(aluno);
         AlunoResponseDto alunoResponse = alunoMapper.toResponse(aluno);
